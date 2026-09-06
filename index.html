@@ -110,7 +110,48 @@ function printReports(){
   window.print();
 }
 function dl(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click()}
-function exportJSON(){dl('Log_Pergerakan_Guru_Besar_Backup.json',JSON.stringify({settings,reports},null,2),'application/json')}
+function importJSON(e){
+  const f = e.target.files[0];
+  if(!f) return;
+
+  const r = new FileReader();
+
+  r.onload = function(){
+    try {
+      const x = JSON.parse(r.result);
+
+      if(Array.isArray(x)){
+        reports = x;
+      } else if(x && Array.isArray(x.reports)){
+        reports = x.reports;
+      } else {
+        reports = [];
+      }
+
+      if(x && x.settings){
+        settings = Object.assign({}, settings, x.settings);
+        localStorage.setItem(SET_KEY, JSON.stringify(settings));
+        applySettings();
+      }
+
+      populateYears();
+      render();
+
+      alert('Import berjaya. Rekod telah dipulihkan: ' + reports.length);
+
+    } catch(err) {
+      console.error('Ralat import:', err);
+      alert('Gagal membaca fail JSON. Pastikan anda memilih fail Backup Data (.json).');
+    }
+  };
+
+  r.onerror = function(){
+    alert('Fail tidak dapat dibaca.');
+  };
+
+  r.readAsText(f);
+  e.target.value = '';
+}
 function exportCSV(){const rows=[['No.','Tarikh','Hari','Masa','Aktiviti','Anjuran','Catatan'],...reports.map(r=>[r.number,r.date,r.day,r.time,r.activity,r.organizer,r.notes])];dl('Log_Pergerakan_Guru_Besar.csv','\ufeff'+rows.map(x=>x.map(s=>`"${String(s??'').replace(/"/g,'""')}"`).join(',')).join('\n'),'text/csv')}
 function importJSON(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);reports=Array.isArray(x)?x:(x.reports||[]);if(x.settings)settings=Object.assign(settings,x.settings);persist();localStorage.setItem(SET_KEY,JSON.stringify(settings));applySettings();populateYears();render();alert('Import berjaya.')}catch(err){alert('Fail JSON tidak sah.')}};r.readAsText(f);e.target.value=''}
 applySettings();populateYears();render();

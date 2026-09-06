@@ -137,6 +137,47 @@ function importJSON(e){
       populateYears();
       render();
 
+      alert('Import berjaya. Rekod dipulihkan: ' + reports.length);
+
+    } catch(err) {
+      console.error('Ralat import:', err);
+      alert('Gagal membaca fail JSON. Pastikan fail Backup Data (.json) dipilih.');
+    }
+  };
+
+  r.onerror = function(){
+    alert('Fail tidak dapat dibaca.');
+  };
+
+  r.readAsText(f);
+  e.target.value = '';
+}
+  const f = e.target.files[0];
+  if(!f) return;
+
+  const r = new FileReader();
+
+  r.onload = function(){
+    try {
+      const x = JSON.parse(r.result);
+
+      if(Array.isArray(x)){
+        reports = x;
+      } else if(x && Array.isArray(x.reports)){
+        reports = x.reports;
+      } else {
+        reports = [];
+      }
+
+      if(x && x.settings){
+        settings = Object.assign({}, settings, x.settings);
+        localStorage.setItem(SET_KEY, JSON.stringify(settings));
+        applySettings();
+      }
+
+      populateYears();
+      render();
+
       alert('Import berjaya. Rekod telah dipulihkan: ' + reports.length);
 
     } catch(err) {

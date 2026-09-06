@@ -531,13 +531,22 @@ function applySettings(){
   $("setName").value = settings.schoolName || "";
   $("setGB").value = settings.gbName || "";
 
-  const printlogo = $("#printLogo");
+  // Paparkan logo di aplikasi dan pada cetakan/PDF.
+  const schoolLogo = $("schoolLogo");
+  const printLogo = $("printLogo");
+
   if(settings.logo){
-    printlogo.src = settings.logo;
-    printlogo.style.display = "block";
+    schoolLogo.src = settings.logo;
+    schoolLogo.style.display = "block";
+
+    printLogo.src = settings.logo;
+    printLogo.style.display = "block";
   }else{
-    printlogo.removeAttribute("src");
-    printlogo.style.display = "none";
+    schoolLogo.removeAttribute("src");
+    schoolLogo.style.display = "none";
+
+    printLogo.removeAttribute("src");
+    printLogo.style.display = "none";
   }
 
   $("printSchool").textContent = settings.schoolName || "SEKOLAH";

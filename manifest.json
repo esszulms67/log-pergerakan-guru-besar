@@ -1,15 +1,21 @@
 {
   "name": "Log Pergerakan Guru Besar",
-  "short_name": "Log GB",
-  "description": "Aplikasi rekod dan laporan pergerakan Guru Besar.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "short_name": "LOG GB",
+  "description": "Sistem Rekod Pergerakan & Aktiviti Guru Besar",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#0b6b3a",
-  "orientation": "portrait",
+  "theme_color": "#6A1B9A",
   "icons": [
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }

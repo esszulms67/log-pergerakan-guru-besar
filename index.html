@@ -54,9 +54,18 @@ input,textarea,select{width:100%;padding:11px;border:1px solid #cbd6cf;border-ra
 <div><label>Anjuran</label><input id="organizer" placeholder="Penganjur / pengelola"></div><div class="full"><label>Catatan</label><textarea id="notes" placeholder="Catatan berkaitan pergerakan atau aktiviti"></textarea></div></div>
 <div class="actions"><button class="primary" onclick="saveReport()">💾 Simpan</button><button onclick="clearForm()">↺ Kosongkan</button></div></section>
 <section id="list" class="card"><h2>Senarai Pergerakan</h2><div class="stats"><div class="stat"><b id="total">0</b>Jumlah</div><div class="stat"><b id="yearTotal">0</b>Tahun</div><div class="stat"><b id="monthTotal">0</b>Bulan</div></div>
-<label>Carian</label><input class="search" id="search" oninput="render()" placeholder="🔎 Aktiviti, anjuran, catatan...">
-<div class="grid filterbar"><div><label>Tahun</label><select id="yearFilter" onchange="render()"><option value="">Semua Tahun</option></select></div><div><label>Bulan</label><select id="monthFilter" onchange="render()"><option value="">Semua Bulan</option><option value="01">Januari</option><option value="02">Februari</option><option value="03">Mac</option><option value="04">April</option><option value="05">Mei</option><option value="06">Jun</option><option value="07">Julai</option><option value="08">Ogos</option><option value="09">September</option><option value="10">Oktober</option><option value="11">November</option><option value="12">Disember</option></select></div></div><div id="reports"></div></section>
-<section id="data" class="card"><h2>Data & Sandaran</h2><p class="small">Rekod disimpan pada peranti. Eksport untuk sandaran.</p><div class="actions no-print"><button class="blue" onclick="exportJSON()">⬇️ JSON</button><button class="gold" onclick="exportCSV()">📊 Excel / CSV</button><button onclick="document.getElementById('importFile').click()">⬆️ Import JSON</button><input id="importFile" type="file" accept=".json" class="hidden" onchange="importJSON(event)"></div><div class="actions no-print"><button class="danger" onclick="clearAll()">🗑️ Padam Semua</button></div></section>
+<section id="data" class="card"><h2>💾 Pengurusan Data</h2>
+<p class="small">Simpan salinan rekod anda dengan Backup Data. Gunakan Restore Data untuk memasukkan semula rekod yang telah disimpan.</p>
+<div class="actions no-print">
+<button class="blue" onclick="exportJSON()">💾 Backup Data</button>
+<button class="gold" onclick="exportCSV()">📊 Eksport Excel / CSV</button>
+<button onclick="document.getElementById('importFile').click()">📥 Restore Data</button>
+<input id="importFile" type="file" accept=".json" class="hidden" onchange="importJSON(event)">
+<button class="primary" onclick="printReports()">📄 Cetak / PDF</button>
+</div>
+<div class="actions no-print">
+<button class="danger" onclick="clearAll()">🗑️ Padam Semua</button>
+</div></section>
 <section id="settings" class="card"><h2>Tetapan</h2><label>Nama Sekolah</label><input id="setName"><label>Nama Guru Besar</label><input id="setGB" placeholder="Nama Guru Besar"><label>Logo Sekolah</label><input id="setLogo" type="file" accept="image/png,image/jpeg,image/webp"><div class="actions"><button class="primary" onclick="saveSettings()">💾 Simpan Tetapan</button><button onclick="resetSettings()">↺ Lalai</button></div><p class="small">Nama sekolah, nama Guru Besar dan logo boleh ditukar untuk sekolah lain.</p></section>
 </main></div>
 <script>

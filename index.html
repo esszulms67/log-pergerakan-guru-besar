@@ -531,7 +531,7 @@ function applySettings(){
   $("setName").value = settings.schoolName || "";
   $("setGB").value = settings.gbName || "";
 
-  const printlogo = $("schoolLogo");
+  const printlogo = $("#printLogo");
   if(settings.logo){
     printlogo.src = settings.logo;
     printlogo.style.display = "block";
